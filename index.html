@@ -10,15 +10,12 @@
 	<body>
 		<div id="container"></div>
 		<script type="text/babel">
-			class Square extends React.Component {
-        render() {
+			function Square(props) {
           return (
             <button className="square" onClick={() => props.onClick()}>
               {props.value}
             </button>
           );
-        }
-
       }
 
       class Board extends React.Component {
@@ -26,13 +23,17 @@
           super();
           this.state = {
             squares: Array(9).fill(null),
+            xIsNext: true,
           };
         }
 
         handleClick(i) {
           const squares = this.state.squares.slice();
-          squares[i] = 'X';
-          this.setState({sqaures: squares});
+          squares[i] = this.state.xIsNext ? 'X' : 'O';
+          this.setState({
+            sqaures: squares,
+            xIsNext: !this.state.xIsNext,
+          });
         }
 
         renderSquare(i) {
@@ -151,7 +152,7 @@
         old.apply(this, arguments);
       }
     })(console.error);
-    
+
   </script>
 
 	</body>
